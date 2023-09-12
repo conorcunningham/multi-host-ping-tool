@@ -8,6 +8,16 @@ It utilises asycnio to speed up the process of pinging multiple hosts. If all ho
 ## Hosts file
 The program will look for `./data/hosts` by default. The hosts file must contain a single host per line. A host can be defined by a FQDN or IP address. If the file and/or directory do not exist, the program will create them.
 
+Here is an example hosts file:
+```text
+192.168.1.100
+192.168.2.200
+10.47.99.12
+www.google.com
+```
+
+## Log file
+
 The log will be stored at `.log/icmp_results.log`. If this file and/or directory do not exist, the program will create them
 
 ## Usage
