@@ -20,6 +20,12 @@ www.google.com
 
 The log will be stored at `.log/icmp_results.log`. If this file and/or directory do not exist, the program will create them
 
+The log format is as follows:
+```text
+2023-09-12 20:48:39,992 - 10.48.219.1 is alive
+2023-09-12 20:48:41,993 - 10.46.150.42 is NOT alive
+```
+
 ## Usage
 ```bash
 python multi_host_ping_tool.py 
