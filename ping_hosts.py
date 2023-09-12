@@ -1,8 +1,14 @@
+import os
 import asyncio
 from pathlib import Path
 from multi_host_ping_tool.ping_and_log import ping_and_log
 
 hosts_file = Path("data/hosts")
+
+if not os.path.isfile(hosts_file):
+    if not os.path.isdir("data"):
+        os.mkdir("data")
+    Path(hosts_file).touch()
 
 
 async def queue_tasks(queue):

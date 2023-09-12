@@ -1,9 +1,16 @@
+import os.path
 import logging
 from icmplib import ping
 from pathlib import Path
 
 
 log_file = Path("logs/icmp_results.log")
+
+if not os.path.isfile(log_file):
+    if not os.path.isdir("logs"):
+        os.mkdir("logs")
+    Path(log_file).touch()
+
 
 # Create a custom logger
 logging.basicConfig()

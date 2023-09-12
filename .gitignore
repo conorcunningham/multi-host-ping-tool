@@ -9,3 +9,6 @@ __pycache__
 runzero
 /logs/icmp_results.log
 /fetch_hosts_from_runzero.py
+logs
+data
+
