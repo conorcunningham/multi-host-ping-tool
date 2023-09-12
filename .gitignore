@@ -1,0 +1,11 @@
+.venv
+__DS_Store
+DS_Store
+.DS_Store
+trusted-network.txt
+.idea
+__pycache__
+/data/
+runzero
+/logs/icmp_results.log
+/fetch_hosts_from_runzero.py
