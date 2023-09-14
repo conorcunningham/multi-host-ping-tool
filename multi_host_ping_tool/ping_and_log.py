@@ -35,7 +35,7 @@ logger.addHandler(stream_handler)
 logger.addHandler(file_handler)
 
 
-async def ping_and_log(hosts, count=1, privileged=False):
+async def ping_and_log(hosts, count=1, privileged=False) -> list[async_multiping]:
     results = await async_multiping(hosts, count=count, privileged=privileged)
     parse_result(results)
     return results
