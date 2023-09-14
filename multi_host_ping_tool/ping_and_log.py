@@ -1,6 +1,6 @@
 import os.path
 import logging
-from icmplib import ping
+from icmplib import async_multiping
 from pathlib import Path
 
 
@@ -35,14 +35,15 @@ logger.addHandler(stream_handler)
 logger.addHandler(file_handler)
 
 
-async def ping_and_log(host) -> ping:
-    ping_result = ping(host, count=1, privileged=False)
-    await parse_result(ping_result)
-    return ping_result
+async def ping_and_log(hosts, count=1, privileged=False):
+    results = await async_multiping(hosts, count=count, privileged=privileged)
+    parse_result(results)
+    return results
 
 
-async def parse_result(result) -> None:
-    if result.is_alive:
-        logger.info(f"{result.address} is alive")
-    else:
-        logger.error(f"{result.address} is NOT alive")
+def parse_result(results) -> None:
+    for result in results:
+        if result.is_alive:
+            logger.info(f"{result.address} is alive")
+        else:
+            logger.error(f"FAILURE: {result.address} is NOT alive")

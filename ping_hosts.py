@@ -11,6 +11,14 @@ if not os.path.isfile(hosts_file):
     Path(hosts_file).touch()
 
 
+def assign_hosts_to_group(max_size=30) -> list[list]:
+    ret = []
+    hosts = read_hosts()
+    for i in range(0, len(hosts), max_size):
+        ret.append(hosts[i:i + max_size])
+    return ret
+
+
 async def queue_tasks(queue) -> None:
     """
     This coroutine will read the hosts file and put each host in the queue.
@@ -19,8 +27,8 @@ async def queue_tasks(queue) -> None:
     :param queue:
     :return: None
     """
-    for host in read_hosts():
-        await queue.put(host)
+    for host_group in assign_hosts_to_group():
+        await queue.put(host_group)
     await queue.put(None)
 
 
@@ -51,12 +59,12 @@ async def consumer(queue) -> None:
     # consume work
     while True:
         # get a unit of work
-        host = await queue.get()
+        host_group = await queue.get()
         # check for stop signal
-        if host is None:
+        if host_group is None:
             break
         # pass hosts to the ping test method
-        await ping_and_log(host)
+        await ping_and_log(host_group)
     print('Ping Tasks: Done. Check log file for results')
 
 
